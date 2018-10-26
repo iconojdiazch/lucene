@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Uso de JavaScript enlazado a la p&aacute;gina</title>
+        <script type="text/javascript" src="javascript/funciones.js">
+<!--
+	alert('Problema con el archivo de funciones');
+//-->
+        </script>
+        <script type="text/javascript">
+            function masSaludo(unBoton){
+                var s = "Saludo desde " + unBoton.value;
+                alert(s);
+                if(document.form1.btnCheck.checked)
+                    document.all.etiqueta.style.display="none";
+                else
+                    document.all.etiqueta.style.display="";
+            }
+        </script>
+    </head>
+    <body>
+        <a href="javascript:saludo()">Uso de JavaScript enlazado a la p&aacute;gina</a>
+        <form name="form1">
+            Hacer desaparecer la imagen <input type="checkbox" name="btnCheck" value="ON" >
+            <input type="button" onclick="masSaludo(this)" value="Ok" />
+        </form>
+        <div id="etiqueta">
+            <img id="imagen" src="imagenes/paisaje.jpg" width="180" height="128" alt="paisaje">                    
+        </div>
+    </body>
+</html>
+

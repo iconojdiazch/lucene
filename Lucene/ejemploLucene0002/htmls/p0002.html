@@ -1,0 +1,39 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Segunda</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            var global = 'Variable global. La fecha de hoy es:';
+            function testGlobal(){
+                global += Date();
+                alert(global);
+            }
+            function testLocal(){
+                var global = 'Variable local';
+                alert(global);
+            }
+            function testReturn(){
+                var x = new Date();
+                return x;
+            }
+            function testParametros(mensaje){
+                return mensaje + testReturn();
+            }
+        </script>
+    </head>
+    <body>
+        <h3>Uso de variables y funciones</h3>
+        <script type="text/javascript">
+            testGlobal();
+            testLocal();
+            alert(testReturn());
+            alert(testParametros('abc'));
+        </script>
+        <a href="index.html">Volver</a>
+    </body>
+</html>

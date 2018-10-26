@@ -43,7 +43,7 @@ public class Principal {
             );
         }
         //Paso 3: Crear consultas
-        String textoConsulta = "lucene";
+        String textoConsulta = "titulo:lucene AND isbn:5*";
 //        String textoConsulta = "acción";
         Query q = new QueryParser("titulo", analizador).parse(textoConsulta);
         //Paso 4: Buscar

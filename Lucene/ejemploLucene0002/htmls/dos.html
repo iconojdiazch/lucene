@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ejemplo Dos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <p class="simple" onmouseover="cambiarFuente('.simple')">Selección de un único elemento usando su clase CSS</p>
+        <p class="simple">Aunque haya más de uno</p>
+    </div>
+    <div>
+        <h4 class="simple" onmouseover="cambiarFuente('h4.simple')">Selección de un única etiqueta con una clase CSS
+            específica (h4)</h4>
+        <h4 class="simple">Aunque haya más de una</h4>
+    </div>
+    <div>
+        <h3 onmouseover="cambiarFuente('h3')">Selección de una única etiqueta (h3)</h3>
+        <h3>Aunque haya más de una</h3>
+    </div>
+    <div>
+        <label id="cambiar">Al pinchar el botón, detectamos su id y cambiamos este texto</label>
+        <button onclick="cambiarHtml()">Cambiar texto</button>
+    </div>
+    <ul>
+        <li>
+            <p onmouseover="cambiarFuente('ul > li > p')">El tamaño de la fuente de este texto cambiará al pasar el
+                ratón por encima</p>
+        </li>
+    </ul>
+    <div>
+        <a href="#" target="_blank">El tamaño de la fuente de este texto cambiará al pinchar el botón</a>
+        <button onclick="cambiarFuente('a[target]')">Cambiar texto</button>
+    </div>
+    <div>
+        <label>El cambio de texto afectará a la primera etiqueta que aparezca en el código html</label>
+        <h5>Seleccionar varias etiquetas (h5)</h5>
+        <h6>Seleccionar varias etiquetas (h6) </h6>
+        <button onclick="cambiarFuente('h5,h6')">Cambiar texto</button>
+    </div>
+    <div>
+        <label>Seleccionar todas las etiquetas de determinado tipo (input)</label><br>
+        <input type="text" disabled value="Input uno" /><br>
+        <input type="text" disabled value="Input dos" /><br>
+        <button onclick="cambiarTodas('input')">Cambiar texto de todos los input</button>
+    </div>
+    <script>
+        function cambiarFuente(deQue) {
+            document.querySelector(deQue).style.fontSize = '2em';
+        }
+        function cambiarHtml() {
+            document.querySelector('#cambiar').innerHTML = 'Texto cambiado';
+        }
+        function cambiarTodas(deQue) {
+            let arr = document.querySelectorAll(deQue);
+            console.log(arr);
+            arr.forEach(t => t.value = 'Nuevo texto');
+        }
+    </script>
+</body>
+
+</html>

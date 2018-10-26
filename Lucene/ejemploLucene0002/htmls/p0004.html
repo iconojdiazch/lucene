@@ -1,0 +1,33 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cuarta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            function testOnClick(){
+                var nodo = document.getElementById("unaCabecera");
+                nodo.style.cursor = "progress";
+                nodo.style.fontSize = "150%";
+                rellenarDiv();
+            }
+            function rellenarDiv(){
+                var nodo = document.getElementById("invisible");
+                nodo.style.color = "red";
+                nodo.innerHTML="Nuevo texto";
+            }
+        </script>
+    </head>
+    <body>
+        <h3 id ="unaCabecera" style="cursor:pointer" onclick="testOnClick()">
+            Gesti&oacute;n de eventos
+        </h3>
+        <div id="invisible">
+
+        </div>
+        <a href="index.html">Volver</a>
+    </body>
+</html>

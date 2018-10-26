@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Rollover simple con JavaScript</title>
+    </head>    
+    <body bgcolor="white">
+        <script type="text/javascript">
+            iluminada = new Image(84,34);
+            iluminada.src = "imagenes/eugimlogo2.gif";
+            apagada = new Image(84,34);
+            apagada.src = "imagenes/eugimlogo.gif";
+        </script>
+        <A href="#" onmouseout="window.document['eul'].src = apagada.src" onmouseover="window.document['eul'].src = iluminada.src">
+            
+        <IMG border=0 height=34 hspace=10 name=eul src="imagenes/eugimlogo.gif" vspace=4 width=84></A>
+        <font face="verdana,arial,helvetica" size="1" color="#003300">
+        Ejemplo de rollover</font>                        
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>S&eacute;ptima</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            var persona = new Object();
+            persona.nombre = 'abc';
+            persona.fecha = function (){
+                return new Date();
+            }
+            persona.obtenerNombre = function(){
+                return this.nombre;
+            }
+            function mostrarPersona(){
+                alert(persona.obtenerNombre() + ' ' + persona.fecha());
+            }
+            var otraPersona = {
+                nombre:'xyz',
+                fecha:function (){
+                    return new Date();
+                }
+            }
+            function mostrarOtraPersona(){
+                alert(otraPersona.nombre + ' ' + otraPersona.fecha());
+            }
+        </script>
+    </head>
+    <body>
+        <h3 style="color:blue">Uso de objetos</h3>
+        <h3 style="cursor:pointer;color:brown" onclick="mostrarPersona()">Pincha aquí.</h3>
+        <h3 style="cursor:pointer;color:brown" onclick="mostrarOtraPersona()">Y luego aquí.</h3>
+        <a href="index.html">Volver</a>
+    </body>
+</html>
