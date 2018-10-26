@@ -1,7 +1,6 @@
 package com.curso.ejemploLucene0001;
 
 import io.vavr.control.Try;
-import java.io.File;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -24,7 +23,6 @@ import java.util.logging.Logger;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.FSDirectory;
 
 public class Principal {
 

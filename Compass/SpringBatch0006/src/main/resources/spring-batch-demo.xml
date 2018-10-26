@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+
+    <!--
+         El origen de datos que apunta a la base de datos con las tablas de
+         Spring Batch. En estas tablas Spring Batch lleva un registro de todas
+         las ejecuciones que se hicieron.
+         El script para generar las tablas necesarias por Spring Batch se
+         encuentra dentro de spring-batch-core-xxxx.jar (en la raiz).
+     -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="url" value="jdbc:derby://localhost:1527/springbatch"/>
+        <property name="username" value="springbatch"/>
+        <property name="password" value="springbatch"/>
+    </bean>
+
+    <!--
+        El gestor de transacciones que se usará durante el procesamiento batch.
+    -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="true">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--
+        El repositorio de tareas de Spring Batch. Este bean es el encargado
+        de guardar la información de las ejecuciones en la base de datos.
+    -->
+    <batch:job-repository id="jobRepository" />
+
+
+    <!--
+        Un ejecutador de tareas. A través de esta clase es que se inicia la
+        ejecución de las taras batch.
+    -->
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository" />
+    </bean>
+
+
+
+    <!--
+        Una trabajo de Spring Batch.
+        Este es el bean principal de Spring Batch, que declara el trabajo batch
+        que se va a ejecutar. El trabajo está compuesta de varios "pasos" (step).
+        Los pasos se ejecutan en forma secuencial.
+
+        En este ejemplo, el trabajo consiste en dos paso "guardarIndice" y "leerIndice".
+        El primer step lee planetas, los mapea a un objeto y por medio de compass crea indices lucene.
+        El segundo este lee planetas del indice y los imprime por consola.
+    -->
+    <batch:job id="trabajoBatch">
+        <batch:step id="guardarIndice" next="leerIndice">
+            <batch:tasklet>
+                <batch:chunk reader="planetaItemReader" writer="planetaItemWriter" commit-interval="5" />
+            </batch:tasklet>
+        </batch:step>
+        <batch:step id="leerIndice">
+            <batch:tasklet>
+                <batch:chunk reader="indiceItemReader" writer="consolaItemWriter" commit-interval="5" />
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    
+    <!--
+        Lector de planteas. Esta reader de base de datos es una clase
+        utilitaria provista por Spring Batch. Este bean ejecuta el query "sql"
+        y recorrer las filas resultantes. Cada fila es transformada con el
+        "mapper" asociado.
+        En este caso se usa un mapper utilitario, que de acuerdo al alias
+        indicado en cada columna del query lo asocia a un objeto Planeta.
+    -->
+    <bean id="planetaItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+        <property name="dataSource" ref="dataSource" />
+        <property name="sql" value="select id_planeta as codigo, nombre as nombre, diametro as diametro, tipo as tipo, observaciones as significado from PLANETA"/>
+        <property name="rowMapper">
+            <bean id="planetaMapper" class="org.springframework.jdbc.core.BeanPropertyRowMapper">
+                <property name="mappedClass">
+                    <value type="java.lang.Class">com.curso.java.springbatch0006.Planeta</value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="planetaItemWriter"  class="com.curso.java.springbatch0006.CompassItemWriter">
+        <property name="compass" ref="compass"/>
+    </bean>
+
+    <!--
+       Esta es la clase encargada de realizar la busqueda en el indice
+    -->
+    <bean id="indiceItemReader" class="com.curso.java.springbatch0006.IndiceItemReader">
+        <property name="compass" ref="compass"/>
+    </bean>
+
+    <!--
+        Esta es la clase encargada de escribir los resultados de la lectura
+        del "itemReader". Cada elemento leido por el "indiceItemReader" es
+        procesado por este "itemWriter".
+        ConsolaItemWriter recibe entonces un Planeta y lo muestra por consola.
+    -->
+    <bean id="consolaItemWriter" class="com.curso.java.springbatch0006.ConsolaItemWriter"/>
+
+    <bean id="compass"
+          class="com.curso.java.springbatch0006.CompassFactory">
+    </bean>
+
+
+</beans>
