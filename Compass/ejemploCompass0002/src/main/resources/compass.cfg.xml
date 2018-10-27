@@ -1,0 +1,10 @@
+<!DOCTYPE compass-core-configuration PUBLIC
+"-//Compass/Compass Core Configuration DTD 2.2//EN"
+"http://www.compass-project.org/dtd/compass-core-configuration-2.2.dtd">
+
+<compass-core-configuration>
+    <compass name="default">
+        <setting name="compass.engine.connection">indices</setting>        
+        <mapping class="com.curso.ejemploCompass0002.modelo.Tweet" />
+    </compass>
+</compass-core-configuration>

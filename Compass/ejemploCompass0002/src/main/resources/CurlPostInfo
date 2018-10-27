@@ -1,0 +1,15 @@
+Para ver la consola de H2:
+http://localhost:8080/h2-console
+Driver: org.h2.Driver
+URL de la base de datos: jdbc:h2:mem:testdb
+Usuario: sa
+Password:
+
+Petición GET:
+curl localhost:8080/tweets
+Petición POST:
+curl -X POST -H "Content-Type: application/json" -d "{\"text\":\"abc\"}" http://localhost:8080/tweets
+Petición PUT:
+curl -X PUT -H "Content-Type: application/json" -d "{\"text\":\"nuevo\"}" http://localhost:8080/tweets/1
+Petición DELETE:
+curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/tweets/1
