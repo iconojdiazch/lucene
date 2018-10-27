@@ -9,9 +9,6 @@ import com.curso.ejemploCompass0002.modelo.Tweet;
 import javax.annotation.PreDestroy;
 import org.compass.core.Compass;
 import org.compass.core.config.CompassConfiguration;
-import org.compass.spring.LocalCompassSessionBean;
-import org.compass.spring.support.CompassContextBeanPostProcessor;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,15 +33,5 @@ public class Configuracion {
     @PreDestroy
     private void limpiar() {
         compass.close();
-    }
-
-    @Bean(autowire = Autowire.BY_TYPE)
-    public LocalCompassSessionBean daIgual2() {
-        return new LocalCompassSessionBean();
-    }
-
-    @Bean
-    public CompassContextBeanPostProcessor daIgual3() {
-        return new CompassContextBeanPostProcessor();
     }
 }
