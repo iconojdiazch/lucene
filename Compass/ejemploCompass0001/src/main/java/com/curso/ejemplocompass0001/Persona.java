@@ -7,7 +7,6 @@ package com.curso.ejemplocompass0001;
 
 import java.util.List;
 import org.compass.annotations.Cascade;
-import org.compass.annotations.Lazy;
 import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableComponent;
 import org.compass.annotations.SearchableId;
