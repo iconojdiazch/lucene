@@ -6,5 +6,8 @@
     <compass name="default">
         <setting name="compass.engine.connection">indices</setting>        
         <mapping class="com.curso.ejemplocompass0001.Planeta" />
+        <mapping class="com.curso.ejemplocompass0001.Persona" />
+        <mapping class="com.curso.ejemplocompass0001.Aficion" />
+        <mapping class="com.curso.ejemplocompass0001.Interes" />
     </compass>
 </compass-core-configuration>

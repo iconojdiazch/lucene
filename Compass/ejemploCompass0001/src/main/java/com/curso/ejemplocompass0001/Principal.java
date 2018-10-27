@@ -7,6 +7,7 @@ package com.curso.ejemplocompass0001;
 
 import static java.lang.System.out;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.compass.core.Compass;
@@ -35,6 +36,46 @@ public class Principal {
      */
     public static void main(String[] args) {
         Principal p = new Principal();
+        p.testPlanetas(p);
+        p.testPersonas(p);
+    }
+
+    private void testPersonas(Principal p) {
+        p.inicializarCompass();
+        p.indexarPersona();
+        Persona persona = p.buscarPersonaPorId(10);
+        LOG.info(persona.toString());
+        String consulta = "nombre:cualquiera AND nombreAficion:tenis OR nombreInteres:Juego*";
+        p.buscarPersonasUsandoCompassCallback(consulta).forEach(out::println);
+        p.cerrar();
+    }
+
+    private Persona buscarPersonaPorId(Integer id) {
+        Persona p;
+        CompassSession session = compass.openSession();
+        CompassTransaction tx = session.beginTransaction();
+        p = session.load(Persona.class, id);
+        tx.commit();
+        session.close();
+        return p;
+    }
+
+    private List<Persona> buscarPersonasUsandoCompassCallback(String consulta) {
+        return compassTemplate.execute(new CompassCallback<List<Persona>>() {
+            @Override
+            public List<Persona> doInCompass(CompassSession session) throws CompassException {
+                List<Persona> r = new ArrayList<>();
+                CompassHits sugerencias = session.find(consulta);
+                System.out.println("Se han encontrado [" + sugerencias.getLength() + "] sugerencias para [" + consulta + "]");
+                for (int i = 0; i < sugerencias.getLength(); i++) {
+                    r.add((Persona) sugerencias.data(i));
+                }
+                return r;
+            }
+        });
+    }
+
+    private void testPlanetas(Principal p) {
         p.inicializarCompass();
         p.indexarPlanetas(p.crearObjetosPlaneta());
         p.buscarPlanetasUsandoCompassCallbackWithoutResult("nombre:* AND tipo:rocoso AND -marte");
@@ -131,7 +172,7 @@ public class Principal {
         CompassTransaction tx = session.beginTransaction();
         p = session.load(Planeta.class, id);
         tx.commit();
-        session.close();        
+        session.close();
         return p;
     }
 
@@ -156,6 +197,18 @@ public class Principal {
         p.setDiametro(0L);
         session.save(p);
         tx.commit();
-        session.close();        
-        return p;    }
+        session.close();
+        return p;
+    }
+
+    private void indexarPersona() {
+        CompassSession session = compass.openSession();
+        CompassTransaction tx = session.beginTransaction();
+        Persona p = new Persona(10L, "cualquiera");
+        p.setAficion(new Aficion("tenis"));
+        p.setIntereses(asList(new Interes(20L, "Informática"), new Interes(30L, "Juego de Tronos")));
+        session.save(p);
+        tx.commit();
+        session.close();
+    }
 }
