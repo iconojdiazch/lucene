@@ -118,10 +118,7 @@ public class Usuario implements Serializable {
         if (this.nombre != other.nombre && (this.nombre == null || !this.nombre.equals(other.nombre))) {
             return false;
         }
-        if (this.clave != other.clave && (this.clave == null || !this.clave.equals(other.clave))) {
-            return false;
-        }
-        return true;
+        return !(this.clave != other.clave && (this.clave == null || !this.clave.equals(other.clave)));
     }
 
     @Override
@@ -134,6 +131,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("La clave del usuario %s es %s y su id es %d", getNombre(), getClave(), getId());
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", direccion=" + direccion + ", correo=" + correo + ", aficiones=" + aficiones + '}';
     }
 }

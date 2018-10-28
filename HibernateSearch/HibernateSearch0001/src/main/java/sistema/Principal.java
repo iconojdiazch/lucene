@@ -55,7 +55,7 @@ public class Principal {
         p.crearUsuarios(1000);
         p.indexarUsuarios();
         p.buscarUsuariosConAficion("montañismo");
-//        p.mostrarUsuarios();
+        p.mostrarUsuarios(10);
         p.cerrar();
     }
 
@@ -67,7 +67,7 @@ public class Principal {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
             StandardServiceRegistryBuilder.destroy(registry);
-            System.out.println("Error irrecuperable: " + e);
+            LOG.log(Level.SEVERE, "Error irrecuperable: {0}", e);
             System.exit(0);
         }
     }
@@ -79,7 +79,7 @@ public class Principal {
 
     void borrarDirectorio(File directorio) throws IOException {
         FileUtils.deleteDirectory(directorio);
-        System.out.println("Directorio " + directorio.getName() + " borrado");
+        LOG.log(Level.INFO, "Directorio {0} borrado", directorio.getName());
     }
 
     /**
@@ -178,13 +178,13 @@ public class Principal {
         }
     }
 
-    private void mostrarUsuarios() {
+    private void mostrarUsuarios(Integer maximo) {
         Session session = null;
         try {
             session = sessionFactory.getCurrentSession();
             session.getTransaction().begin();
             Query<Usuario> query = session.createQuery("select u from Usuario u where u.aficiones like '%montañismo%'", Usuario.class);
-            query.setMaxResults(10);
+            query.setMaxResults(maximo);
             List<Usuario> usuarios = query.list();
             if (usuarios.isEmpty()) {
                 System.out.println("No hay usuarios que mostrar");
