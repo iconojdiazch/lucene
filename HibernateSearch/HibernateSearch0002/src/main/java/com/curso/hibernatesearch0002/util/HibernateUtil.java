@@ -7,7 +7,6 @@ package com.curso.hibernatesearch0002.util;
 
 import com.curso.hibernatesearch0002.Author;
 import com.curso.hibernatesearch0002.Book;
-import static java.lang.System.out;
 import static java.util.Arrays.asList;
 import java.util.Date;
 import java.util.List;

@@ -46,7 +46,7 @@ public class Book {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date publicationDate;
 
-//    @IndexedEmbedded
+    @IndexedEmbedded
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Author> authors = new HashSet<Author>();
 

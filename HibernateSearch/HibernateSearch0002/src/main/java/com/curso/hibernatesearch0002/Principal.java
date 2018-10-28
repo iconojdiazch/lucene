@@ -8,16 +8,7 @@ package com.curso.hibernatesearch0002;
 import com.curso.hibernatesearch0002.util.LogUtil;
 import com.curso.hibernatesearch0002.util.HibernateUtil;
 import com.curso.hibernatesearch0002.util.SearchUtil;
-import static com.curso.hibernatesearch0002.util.LogUtil.LOG;
-import static java.lang.System.out;
-import static java.util.Arrays.asList;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.logging.Level;
-import static java.util.stream.Collectors.toSet;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
