@@ -38,6 +38,8 @@ public class Principal {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws org.apache.lucene.queryparser.classic.ParseException
      */
     public static void main(String[] args) throws IOException, ParseException {
         FileUtils.deleteDirectory(new File(LUCENEINDEX));
@@ -79,7 +81,7 @@ public class Principal {
     private ScoreDoc[] realizarBusqueda(String termino) throws ParseException, IOException {        
         Query q = new QueryParser("cuerpo", new SpanishAnalyzer()).parse(termino);
         TopDocs documentos;
-        try (DirectoryReader lector = DirectoryReader.open(FSDirectory.open(new File("lucene-index").toPath()))) {
+        try (DirectoryReader lector = DirectoryReader.open(FSDirectory.open(new File(LUCENEINDEX).toPath()))) {
             IndexSearcher buscador = new IndexSearcher(lector);
             documentos = buscador.search(q, 10);
         }

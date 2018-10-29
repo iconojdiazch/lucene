@@ -35,7 +35,7 @@ public class Principal {
         SpanishAnalyzer analizador = new SpanishAnalyzer();
 
         FileUtils.deleteDirectory(new File(LUCENEINDEX));
-        FSDirectory index = FSDirectory.open(new File("lucene-index").toPath());
+        FSDirectory index = FSDirectory.open(new File(LUCENEINDEX).toPath());
 
         IndexWriterConfig config = new IndexWriterConfig(analizador);
         Principal p = new Principal();
