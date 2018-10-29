@@ -5,6 +5,7 @@
  */
 package com.curso.plantillapractica;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.Embeddable;
  * @author usuario
  */
 @Embeddable
-public class Direccion {
+public class Direccion implements Serializable {
     private String calle;
 
     public Direccion() {

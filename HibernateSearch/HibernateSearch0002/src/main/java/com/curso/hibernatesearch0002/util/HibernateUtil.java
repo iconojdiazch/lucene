@@ -7,13 +7,13 @@ package com.curso.hibernatesearch0002.util;
 
 import com.curso.hibernatesearch0002.Author;
 import com.curso.hibernatesearch0002.Book;
-import static java.util.Arrays.asList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import static java.util.stream.Collectors.toSet;
+import java.util.stream.Stream;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -62,8 +62,7 @@ public class HibernateUtil implements LogUtil {
     public static Optional<Book> crearObjetosPersistentes(Optional<SessionFactory> sf) {
         return sf.map(SessionFactory::getCurrentSession).map(
                 s -> {
-                    Set<Author> autores = asList("Miguel", "Cervantes", "Saavedra")
-                            .stream()
+                    Set<Author> autores = Stream.of("Miguel", "Cervantes", "Saavedra")
                             .map(Author::new)
                             .collect(toSet());
                     Book b = new Book("El Quijote", "El ingenioso hidalgo de la Mancha", new Date());

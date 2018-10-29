@@ -5,6 +5,7 @@
  */
 package com.curso.practicaposiblesolucion;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Store;
@@ -14,7 +15,7 @@ import org.hibernate.search.annotations.Store;
  * @author usuario
  */
 @Embeddable
-public class Direccion {
+public class Direccion implements Serializable {
 
     @Field(store = Store.YES) // Necesario si queremos usarlo en, por ejemplo, proyecciones
     private String calle;

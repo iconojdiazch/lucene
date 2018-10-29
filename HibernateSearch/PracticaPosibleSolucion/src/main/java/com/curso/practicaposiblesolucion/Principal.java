@@ -121,7 +121,7 @@ public class Principal {
         try {
             final String consulta = "nombre:Un* calle:Una*";
             final String[] campos = {"nombre", "direccion.calle"};
-            FullTextSession fts = null;
+            FullTextSession fts;
             Session s = sf.getCurrentSession();
             fts = Search.getFullTextSession(s);
             fts.getTransaction().begin();
