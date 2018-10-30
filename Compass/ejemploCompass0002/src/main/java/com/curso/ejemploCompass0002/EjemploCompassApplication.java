@@ -2,12 +2,8 @@ package com.curso.ejemploCompass0002;
 
 import com.curso.ejemploCompass0002.modelo.Tweet;
 import com.curso.ejemploCompass0002.repos.TweetRepository;
-import static java.util.Arrays.asList;
-import java.util.List;
-import org.compass.core.Compass;
-import org.compass.core.CompassHits;
-import org.compass.core.CompassSession;
-import org.compass.spring.LocalCompassSessionBean;
+import com.curso.ejemploCompass0002.servicio.ServicioCompass;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,19 +20,21 @@ public class EjemploCompassApplication implements CommandLineRunner {
     private TweetRepository repo;
 
     @Autowired
-    private Compass compass;
-    
+    private ServicioCompass sc;
+
     @Override
     public void run(String... args) throws Exception {
-        asList("uno","dos","tres").stream().map(t -> new Tweet(t)).forEach(repo::save);
-        List<Tweet> findAll = repo.findAll();
-        System.out.println("::::::Indexando");  
-        CompassSession sesion = compass.openSession();
-        sesion.beginTransaction();
-        findAll.forEach(sesion::save);        
-        CompassHits find = sesion.find("text:*");
-        System.out.println("::::::Hits: " + find.length());
-        sesion.commit();        
-        sesion.close();
+        System.out.println("::::::Indexando");
+        Integer cuantosHits = sc.ejecutarEnTransaccion(
+                sesion -> {
+                    Stream
+                            .of("uno", "dos", "tres")
+                            .map(Tweet::new)
+                            .map(repo::save)
+                            .forEach(sesion::save);
+                    return sesion.find("text:*").length();
+                }
+        ).orElse(0);
+        System.out.println("::::::Hits: " + cuantosHits);
     }
 }

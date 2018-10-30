@@ -23,6 +23,7 @@ import org.compass.annotations.SearchableProperty;
 @Entity
 @Searchable
 public class Tweet {
+
     @SearchableId
     @Id
     @GeneratedValue
@@ -72,5 +73,5 @@ public class Tweet {
     public String toString() {
         return "Tweet{" + "id=" + id + ", text=" + text + ", createdAt=" + createdAt + '}';
     }
-    
+
 }

@@ -7,6 +7,7 @@ Password:
 
 Petición GET:
 curl localhost:8080/tweets
+curl localhost:8080/tweetscompass
 Petición POST:
 curl -X POST -H "Content-Type: application/json" -d "{\"text\":\"abc\"}" http://localhost:8080/tweets
 Petición PUT:
