@@ -93,7 +93,9 @@ public class Principal {
 
     private void inicializarCompass() {
         LOG.info("Inicializando Compass".toUpperCase());
-        CompassConfiguration config = new CompassConfiguration().configure().addClass(Planeta.class);
+//        CompassConfiguration config = new CompassConfiguration().configure().addClass(Planeta.class);
+//        CompassConfiguration config = new CompassConfiguration().configure("/compass.cfg.hsqldb.xml").addClass(Planeta.class).addClass(Persona.class).addClass(Aficion.class).addClass(Interes.class);
+        CompassConfiguration config = new CompassConfiguration().configure("/compass.cfg.derby.xml").addClass(Planeta.class).addClass(Persona.class).addClass(Aficion.class).addClass(Interes.class);
         compass = config.buildCompass();
         compass.getSearchEngineIndexManager().deleteIndex();
         compass.getSearchEngineIndexManager().createIndex();

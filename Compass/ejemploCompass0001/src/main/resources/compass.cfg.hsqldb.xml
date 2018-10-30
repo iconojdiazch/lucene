@@ -1,0 +1,17 @@
+<compass-core-config xmlns="http://www.compass-project.org/schema/core-config"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://www.compass-project.org/schema/core-config
+          http://www.compass-project.org/schema/compass-core-config-2.2.xsd">
+
+    <compass name="default">
+        <connection>
+            <jdbc>
+                <dataSourceProvider>
+                    <c3p0 url="jdbc:hsqldb:mem:test" 
+                          username="testusername" password="testpassword" 
+                          driverClass="org.hsqldb.jdbcDriver" />
+                </dataSourceProvider>
+            </jdbc>
+        </connection>
+    </compass>
+</compass-core-config>

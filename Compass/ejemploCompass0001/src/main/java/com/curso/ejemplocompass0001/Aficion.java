@@ -14,6 +14,7 @@ import org.compass.annotations.SearchableProperty;
  */
 @Searchable(root = false)
 public class Aficion {
+
     @SearchableProperty
     private String nombreAficion;
 
@@ -36,5 +37,5 @@ public class Aficion {
     public String toString() {
         return "Aficion{" + "nombre=" + nombreAficion + '}';
     }
-    
+
 }
